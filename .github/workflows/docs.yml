@@ -1,0 +1,49 @@
+name: Generate Documentation
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      # 运行测试确保代码无误
+      - name: Run Tests
+        run: |
+          python -m unittest discover -p "test_*.py"
+
+      # 构建 Sphinx 文档
+      - name: Build HTML Docs
+        run: |
+          cd docs
+          # 创建必要的静态目录以防报错
+          mkdir -p _static
+          # 生成 HTML
+          sphinx-build -b html . _build/html
+
+      # 发布到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/master'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html
+          force_orphan: true # 强制覆盖 gh-pages 分支，保持历史干净
