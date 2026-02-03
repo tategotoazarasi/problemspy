@@ -106,3 +106,66 @@ class Solution3651:
 					processed_idx[target_k] = idx
 
 		return 0
+
+
+class Solution3640:
+	def maxSumTrionic(self, nums: List[int]) -> int:
+		down = {}
+		up = {}
+		isup = False
+		isdown = False
+		start = 0
+		for i in range(len(nums) - 1):
+			if nums[i + 1] > nums[i]:
+				if isdown:
+					down[start] = i
+					start = i
+				isdown = False
+				isup = True
+			if nums[i + 1] < nums[i]:
+				if isup:
+					up[start] = i
+					start = i
+				isup = False
+				isdown = True
+			if nums[i + 1] == nums[i]:
+				if isup:
+					up[start] = i
+				if isdown:
+					down[start] = i
+				isup = False
+				isdown = False
+				start = i + 1
+		if isup:
+			up[start] = len(nums) - 1
+		if isdown:
+			down[start] = len(nums) - 1
+
+		updown = {}
+		for k, v in up.items():
+			if v in down.keys():
+				updown[k] = (v, down[v])
+		updownup = {}
+		for k, v in updown.items():
+			if v[1] in up.keys():
+				updownup[k] = (k, v[0], v[1], up[v[1]])
+		ans = -10 ** 1000
+		for k, v in updownup.items():
+			s = 0
+			for i in range(v[1], v[2] + 1):
+				s += nums[i]
+			sleft = 0
+			smax = -10 ** 1000
+			for i in range(v[1] - 1, v[0] - 1, -1):
+				sleft += nums[i]
+				smax = max(smax, sleft)
+			s += smax
+			sright = 0
+			smax = -10 ** 1000
+			for i in range(v[2] + 1, v[3] + 1):
+				sright += nums[i]
+				smax = max(smax, sright)
+			s += smax
+			ans = max(ans, s)
+
+		return ans

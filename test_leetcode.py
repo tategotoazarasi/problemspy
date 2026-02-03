@@ -385,3 +385,28 @@ class Test3651(unittest.TestCase):
 		result = self.solver.minCost(grid, k)
 
 		self.assertEqual(result, answer)
+
+
+class Test3640(unittest.TestCase):
+	solver = leetcode.Solution3640()
+
+	def test_case1(self):
+		nums = [0, -2, -1, -3, 0, 2, -1]
+		answer = -4
+
+		result = self.solver.maxSumTrionic(nums)
+		self.assertEqual(result, answer)
+
+	def test_case2(self):
+		nums = [1, 4, 2, 7]
+		answer = 14
+
+		result = self.solver.maxSumTrionic(nums)
+		self.assertEqual(result, answer)
+
+	def test_case3(self):
+		nums = [2, 993, -791, -635, -569]
+		answer = -431
+
+		result = self.solver.maxSumTrionic(nums)
+		self.assertEqual(result, answer)
