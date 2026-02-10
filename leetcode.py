@@ -169,3 +169,14 @@ class Solution3640:
 			ans = max(ans, s)
 
 		return ans
+
+
+class Solution1935:
+	def canBeTypedWords(self, text: str, brokenLetters: str) -> int:
+		broken_set = set(brokenLetters)
+		words = text.split(' ')
+		count = 0
+		for word in words:
+			if all(letter not in broken_set for letter in word):
+				count += 1
+		return count

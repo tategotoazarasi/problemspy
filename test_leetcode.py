@@ -410,3 +410,31 @@ class Test3640(unittest.TestCase):
 
 		result = self.solver.maxSumTrionic(nums)
 		self.assertEqual(result, answer)
+
+
+class Test1935(unittest.TestCase):
+	solver = leetcode.Solution1935()
+
+	def test_case1(self):
+		text = "hello world"
+		brokenLetters = "ad"
+		answer = 1
+
+		result = self.solver.canBeTypedWords(text, brokenLetters)
+		self.assertEqual(result, answer)
+
+	def test_case2(self):
+		text = "leet code"
+		brokenLetters = "lt"
+		answer = 1
+
+		result = self.solver.canBeTypedWords(text, brokenLetters)
+		self.assertEqual(result, answer)
+
+	def test_case3(self):
+		text = "leet code"
+		brokenLetters = "e"
+		answer = 0
+
+		result = self.solver.canBeTypedWords(text, brokenLetters)
+		self.assertEqual(result, answer)
