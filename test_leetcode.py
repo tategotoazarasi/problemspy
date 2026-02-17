@@ -438,3 +438,16 @@ class Test1935(unittest.TestCase):
 
 		result = self.solver.canBeTypedWords(text, brokenLetters)
 		self.assertEqual(result, answer)
+
+
+class Test693(unittest.TestCase):
+	solver = leetcode.Solution693()
+
+	def test_case1(self):
+		self.assertTrue(self.solver.hasAlternatingBits(5))
+
+	def test_case2(self):
+		self.assertFalse(self.solver.hasAlternatingBits(7))
+
+	def test_case3(self):
+		self.assertFalse(self.solver.hasAlternatingBits(11))

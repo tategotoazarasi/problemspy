@@ -180,3 +180,16 @@ class Solution1935:
 			if all(letter not in broken_set for letter in word):
 				count += 1
 		return count
+
+
+class Solution693:
+	def hasAlternatingBits(self, n: int) -> bool:
+		valid = set()
+		v = 1
+		for i in range(32):
+			v |= 1
+			valid.add(v)
+			v <<= 1
+			valid.add(v)
+			v <<= 1
+		return n in valid
