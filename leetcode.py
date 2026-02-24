@@ -1,7 +1,9 @@
 import heapq
 from collections import defaultdict
 from dataclasses import dataclass, field
-from typing import List
+from typing import List, Optional
+
+from common import TreeNode
 
 
 class Solutions:
@@ -193,3 +195,21 @@ class Solution693:
 			valid.add(v)
 			v <<= 1
 		return n in valid
+
+
+class Solution1022:
+	def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
+		if root is None:
+			return 0
+		return self.sumRoot(root.val, root)
+
+	def sumRoot(self, current: int, node: TreeNode) -> int:
+		l = 0
+		if node.left is not None:
+			l = self.sumRoot((current << 1) | node.left.val, node.left)
+		r = 0
+		if node.right is not None:
+			r = self.sumRoot((current << 1) | node.right.val, node.right)
+		if node.left is None and node.right is None:
+			return current
+		return l + r

@@ -1,6 +1,7 @@
 import unittest
 
 import leetcode
+from common import TreeNode
 
 
 class Test3512(unittest.TestCase):
@@ -451,3 +452,21 @@ class Test693(unittest.TestCase):
 
 	def test_case3(self):
 		self.assertFalse(self.solver.hasAlternatingBits(11))
+
+
+class Test1022(unittest.TestCase):
+	solver = leetcode.Solution1022()
+
+	def test_case1(self):
+		root = TreeNode(1, TreeNode(0, TreeNode(0), TreeNode(1)), TreeNode(1, TreeNode(0), TreeNode(1)))
+		answer = 22
+
+		result = self.solver.sumRootToLeaf(root)
+		self.assertEqual(result, answer)
+
+	def test_case2(self):
+		root = TreeNode(0)
+		answer = 0
+
+		result = self.solver.sumRootToLeaf(root)
+		self.assertEqual(result, answer)
